@@ -1,18 +1,21 @@
 version: 2.1
 
-jobs:
-  build:
+executors:
+  go_image:
     docker:
       - image: cimg/go:1.13
+
+
+jobs:
+  build:
+    executor: go_image
     steps:
         - checkout
         - setup_remote_docker
         - run: |
-            docker login --username $DOCKER_USER --password $DOCKER_PASS
             docker build -t busylight-server:1 .
   build-n-push:
-    docker:
-      - image: cimg/go:1.13
+    executor: go_image
     steps:
         - checkout
         - setup_remote_docker
