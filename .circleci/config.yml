@@ -1,12 +1,10 @@
  version: 2.1
 
- orbs:
-  win: circleci/windows@2.2.0
-
- jobs:
-   build:
-     executor: win/default     
-    
-     steps:
-       - checkout
-       - run: dotnet build
+jobs:
+  build:
+    docker:
+      - image: cimg/go:1.13
+    steps:
+        - checkout
+        - setup_remote_docker
+        - run: docker build -t busylight:1
