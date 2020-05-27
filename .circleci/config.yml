@@ -10,16 +10,16 @@ jobs:
         - run: |
             docker login --username $DOCKER_USER --password $DOCKER_PASS
             docker build -t busylight-server:1 .
-    build-n-push:
-      docker:
-        - image: cimg/go:1.13
-      steps:
-          - checkout
-          - setup_remote_docker
-          - run: |
-              docker login --username $DOCKER_USER --password $DOCKER_PASS
-              docker build -t busylight-server:1 .
-              docker push busylight-server:$CIRCLE_TAG
+  build-n-push:
+    docker:
+      - image: cimg/go:1.13
+    steps:
+        - checkout
+        - setup_remote_docker
+        - run: |
+            docker login --username $DOCKER_USER --password $DOCKER_PASS
+            docker build -t busylight-server:1 .
+            docker push busylight-server:$CIRCLE_TAG
 
 workflows:
   version: 2
