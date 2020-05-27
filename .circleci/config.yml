@@ -7,4 +7,4 @@ jobs:
     steps:
         - checkout
         - setup_remote_docker
-        - run: docker build -t busylight:1
+        - run: docker build -t busylight:1 .
