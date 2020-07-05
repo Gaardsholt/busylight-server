@@ -1,11 +1,8 @@
 ﻿using busylight_server.ApiKeyAuthMiddleware;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
-using Microsoft.CodeAnalysis.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
@@ -40,8 +37,9 @@ namespace busylight_server.ApiKeyAuthMiddleware
 
         /// <summary>
         /// Your super secret value that should be in "KeyName"
+        /// If you need to specify multiple keys then do it as comma seperated.
         /// </summary>
-        public string ApiKey { get; set; }
+        public string ApiKeys { get; set; }
     }
 
     internal class ApiKeyAuthHandler : AuthenticationHandler<ApiKeyAuthOptions>
@@ -56,7 +54,7 @@ namespace busylight_server.ApiKeyAuthMiddleware
             var identity = new ClaimsIdentity(Options.KeyName);
             var ticket = new AuthenticationTicket(new ClaimsPrincipal(identity), null, Options.KeyName);
 
-            if (string.IsNullOrWhiteSpace(Options.ApiKey))
+            if (string.IsNullOrWhiteSpace(Options.ApiKeys))
                 return Task.FromResult(AuthenticateResult.Success(ticket));
 
 
@@ -67,9 +65,11 @@ namespace busylight_server.ApiKeyAuthMiddleware
                 key = Request.Query[Options.KeyName];
 
 
-            if (key == Options.ApiKey)
+
+
+            if (Options.ApiKeys.Split(',').Contains(key))
                 return Task.FromResult(AuthenticateResult.Success(ticket));
-            
+
 
             return Task.FromResult(AuthenticateResult.NoResult());
         }
