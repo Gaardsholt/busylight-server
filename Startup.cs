@@ -1,6 +1,4 @@
-using busylight_server.ApiKeyAuthMiddleware;
 using busylight_server.Hubs;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +11,9 @@ namespace busylight_server
 {
     public class Startup
     {
+        private const string Title = "Busylight Server";
+        private const string Version = "v1";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -20,31 +21,26 @@ namespace busylight_server
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(new Settings());
             services.AddApiKeyAuthentication(a =>
             {
-                a.ApiKey = "some-key";
+                a.ApiKeys = Settings.API_KEYS;
                 a.KeyName = "ApiKey";
             });
 
 
             services.AddSignalR();
             services.AddControllers()
-                .AddJsonOptions(j =>
-                {
-                    j.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                });
+                    .AddJsonOptions(j => { j.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 
-            // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Busylight Server", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = Title, Version = Version });
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -53,12 +49,9 @@ namespace busylight_server
             }
 
             app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{Title} {Version}");
             });
 
             app.UseRouting();
