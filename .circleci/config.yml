@@ -21,8 +21,8 @@ jobs:
         - setup_remote_docker
         - run: |
             docker login --username $DOCKER_USER --password $DOCKER_PASS
-            docker build -t gaardsholt/$CIRCLE_PROJECT_REPONAME:${CIRCLE_TAG:1} -t gaardsholt/$CIRCLE_PROJECT_REPONAME:latest .
-            docker push gaardsholt/$CIRCLE_PROJECT_REPONAME:${CIRCLE_TAG:1}
+            docker build -t gaardsholt/$CIRCLE_PROJECT_REPONAME:${CIRCLE_TAG} -t gaardsholt/$CIRCLE_PROJECT_REPONAME:latest .
+            docker push gaardsholt/$CIRCLE_PROJECT_REPONAME:${CIRCLE_TAG}
             docker push gaardsholt/$CIRCLE_PROJECT_REPONAME:latest
 
 workflows:
