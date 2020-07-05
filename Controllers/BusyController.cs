@@ -27,6 +27,12 @@ namespace busylight_server.Controllers
             await HubContext.Clients.Group(group).SendAsync("Ring", color, tune);
         }
 
+        [HttpPost("{group}")]
+        public async Task Police(string group)
+        {
+            await HubContext.Clients.Group(group).SendAsync("Police");
+        }
+
     }
 
     public enum BusylightSoundClip
