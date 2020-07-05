@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
 namespace busylight_server.Hubs
 {
+    [Authorize]
     public class BusyHub : Hub
     {
         private static ConcurrentDictionary<string, string> _connections = new ConcurrentDictionary<string, string>();
