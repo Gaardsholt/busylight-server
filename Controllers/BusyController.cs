@@ -22,9 +22,9 @@ namespace busylight_server.Controllers
         }
 
         [HttpPost("{group}")]
-        public async Task Ring(string group, string color, BusylightSoundClip tune)
+        public async Task Ring(string group)
         {
-            await HubContext.Clients.Group(group).SendAsync("Ring", color, tune);
+            await HubContext.Clients.Group(group).SendAsync("Ring");
         }
 
         [HttpPost("{group}")]
@@ -33,19 +33,5 @@ namespace busylight_server.Controllers
             await HubContext.Clients.Group(group).SendAsync("Police");
         }
 
-    }
-
-    public enum BusylightSoundClip
-    {
-        OpenOffice = 1,
-        Quiet = 2,
-        Funky = 3,
-        FairyTale = 4,
-        KuandoTrain = 5,
-        TelephoneNordic = 6,
-        TelephoneOriginal = 7,
-        TelephonePickMeUp = 8,
-        IM1 = 9,
-        IM2 = 10
     }
 }
