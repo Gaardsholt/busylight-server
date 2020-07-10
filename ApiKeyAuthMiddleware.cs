@@ -39,7 +39,7 @@ namespace busylight_server.ApiKeyAuthMiddleware
         /// Your super secret value that should be in "KeyName"
         /// If you need to specify multiple keys then do it as comma seperated.
         /// </summary>
-        public string ApiKeys { get; set; }
+        public string[] ApiKeys { get; set; }
     }
 
     internal class ApiKeyAuthHandler : AuthenticationHandler<ApiKeyAuthOptions>
@@ -54,7 +54,7 @@ namespace busylight_server.ApiKeyAuthMiddleware
             var identity = new ClaimsIdentity(Options.KeyName);
             var ticket = new AuthenticationTicket(new ClaimsPrincipal(identity), null, Options.KeyName);
 
-            if (string.IsNullOrWhiteSpace(Options.ApiKeys))
+            if (Options.ApiKeys.Length == 0)
                 return Task.FromResult(AuthenticateResult.Success(ticket));
 
 
@@ -67,7 +67,7 @@ namespace busylight_server.ApiKeyAuthMiddleware
 
 
 
-            if (Options.ApiKeys.Split(',').Contains(key))
+            if (Options.ApiKeys.Contains(key))
                 return Task.FromResult(AuthenticateResult.Success(ticket));
 
 

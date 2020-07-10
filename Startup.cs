@@ -26,8 +26,8 @@ namespace busylight_server
             services.AddSingleton(new Settings());
             services.AddApiKeyAuthentication(a =>
             {
-                a.ApiKeys = Settings.API_KEYS;
                 a.KeyName = "ApiKey";
+                a.ApiKeys = Settings.API_KEYS.Split(',');
             });
 
 
