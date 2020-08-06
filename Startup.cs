@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Prometheus;
 using System.Text.Json.Serialization;
 
 namespace busylight_server
@@ -55,6 +56,7 @@ namespace busylight_server
             });
 
             app.UseRouting();
+            app.UseHttpMetrics();
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -63,6 +65,7 @@ namespace busylight_server
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<BusyHub>("/BusyHub");
+                endpoints.MapMetrics();
             });
         }
     }

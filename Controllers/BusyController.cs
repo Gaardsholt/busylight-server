@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Prometheus;
 using System.Threading.Tasks;
 
 namespace busylight_server.Controllers
@@ -11,6 +12,8 @@ namespace busylight_server.Controllers
     [Authorize]
     public class BusyController : ControllerBase
     {
+        private static readonly Counter _metricsMessagesReceived = Metrics.CreateCounter("myapp_requests_total", "Number of requests received, by HTTP method.");
+        
         private IHubContext<BusyHub> HubContext { get; set; }
         public BusyController(IHubContext<BusyHub> hubcontext) => HubContext = hubcontext;
 
@@ -24,6 +27,7 @@ namespace busylight_server.Controllers
         [HttpPost("{group}")]
         public async Task Ring(string group)
         {
+            _metricsMessagesReceived.Inc();
             await HubContext.Clients.Group(group).SendAsync("Ring");
         }
 
