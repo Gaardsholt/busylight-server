@@ -50,7 +50,8 @@ jobs:
 workflows:
   build:
     jobs:
-      - test
+      - test:
+          context: gaardsholt
       - build:
           context: gaardsholt
           filters:
