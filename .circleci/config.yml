@@ -47,8 +47,33 @@ jobs:
             docker push gaardsholt/$CIRCLE_PROJECT_REPONAME:${CIRCLE_TAG}
             docker push gaardsholt/$CIRCLE_PROJECT_REPONAME:latest
 
+  cleanup:
+    docker:
+      - image: google/cloud-sdk:alpine
+    steps:
+      - attach_workspace:
+          at: /tmp
+      - checkout
+      - run:
+        name: gcloud login
+        command: |
+          echo "Will now do some cleanup"
+parameters:
+  cleanup:
+    type: boolean
+    default: false
+  OLD_BRANCH_NAME:
+    type: string
+    default: ''
+
 workflows:
+  do_cleanup:
+    when: << pipeline.parameters.cleanup >>
+    jobs:
+      - cleanup
+
   build:
+    unless: << pipeline.parameters.cleanup >>
     jobs:
       - test:
           context: gaardsholt
@@ -60,6 +85,7 @@ workflows:
             tags:
               ignore: /^[0-9]+(\.[0-9]+)*(-.*)*$/
   build-n-push:
+    unless: << pipeline.parameters.cleanup >>
     jobs:
       - build-n-push:
           context: gaardsholt
