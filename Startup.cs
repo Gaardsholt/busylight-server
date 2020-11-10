@@ -7,10 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Prometheus;
 using System;
-using System.Text.Json.Serialization;
-using System.Linq;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
 namespace busylight_server
 {
