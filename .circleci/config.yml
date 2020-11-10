@@ -6,7 +6,7 @@ executors:
       - image: cimg/go:1.13
   dotnet:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+      - image: mcr.microsoft.com/dotnet/core/sdk:5.0
 
 jobs:
   test:
@@ -23,7 +23,7 @@ jobs:
           name: Run SonarCloud Scanner
           command: |
             export PATH="$PATH:/root/.dotnet/tools"
-            dotnet tool install --global dotnet-sonarscanner --version 4.10.0
+            dotnet tool install --global dotnet-sonarscanner
             dotnet restore
             dotnet-sonarscanner begin /k:"Gaardsholt_$CIRCLE_PROJECT_REPONAME" /n:"$CIRCLE_PROJECT_REPONAME" /o:"gaardsholt-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$SONAR"
             dotnet msbuild /t:Rebuild
