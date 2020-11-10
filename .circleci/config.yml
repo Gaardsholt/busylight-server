@@ -3,7 +3,7 @@ version: 2.1
 executors:
   go_image:
     docker:
-      - image: cimg/go:1.13
+      - image: cimg/go:1.15
   dotnet:
     docker:
       - image: mcr.microsoft.com/dotnet/sdk:5.0
@@ -46,13 +46,6 @@ jobs:
           docker build -t gaardsholt/$CIRCLE_PROJECT_REPONAME:${CIRCLE_TAG} -t gaardsholt/$CIRCLE_PROJECT_REPONAME:latest .
           docker push gaardsholt/$CIRCLE_PROJECT_REPONAME:${CIRCLE_TAG}
           docker push gaardsholt/$CIRCLE_PROJECT_REPONAME:latest
-  cleanup:
-    executor: go_image
-    steps:
-      - run:
-          name: gcloud login
-          command: |
-            echo "Will now do some cleanup"
 
 workflows:
   build:
