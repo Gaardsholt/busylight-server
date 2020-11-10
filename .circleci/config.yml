@@ -1,7 +1,7 @@
 version: 2.1
 
 executors:
-  go_image:
+  docker_image:
     docker:
       - image: cimg/base:stable-18.04
   dotnet:
@@ -30,14 +30,14 @@ jobs:
             dotnet msbuild /t:Rebuild
             dotnet-sonarscanner end /d:sonar.login="$SONAR"
   build:
-    executor: go_image
+    executor: docker_image
     steps:
         - checkout
         - setup_remote_docker
         - run: |
             docker build -t busylight-server:1 .
   build-n-push:
-    executor: go_image
+    executor: docker_image
     steps:
       - checkout
       - setup_remote_docker
