@@ -13,4 +13,12 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
 COPY --from=build-env /app/out .
+
+# Create user
+RUN groupadd -g 2000 app_user && \
+  useradd -m -u 2000 -g app_user app_user
+
+# Use user
+USER app_user
+
 ENTRYPOINT ["dotnet", "busylight-server.dll"]
