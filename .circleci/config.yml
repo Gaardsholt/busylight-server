@@ -6,7 +6,7 @@ executors:
       - image: cimg/base:stable-18.04
   dotnet:
     docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0.100
+      - image: mcr.microsoft.com/dotnet/sdk:6.0
 
 jobs:
   test:
@@ -52,8 +52,8 @@ jobs:
 workflows:
   build:
     jobs:
-      - test:
-          context: gaardsholt
+      # - test:
+      #     context: gaardsholt
       - build:
           context: gaardsholt
           filters:
