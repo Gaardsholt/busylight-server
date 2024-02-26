@@ -1,3 +1,5 @@
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Gaardsholt/busylight-server/badge)](https://securityscorecards.dev/viewer/?uri=github.com/Gaardsholt/busylight-server)
+
 # walk-up
 
 walk-up is built to [Walk-up Experience
@@ -28,4 +30,3 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
-
