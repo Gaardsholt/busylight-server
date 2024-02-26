@@ -1,3 +1,5 @@
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Gaardsholt/busylight-server/badge)](https://securityscorecards.dev/viewer/?uri=github.com/{owner}/{repo})
+
 # walk-up
 
 walk-up is built to [Walk-up Experience
