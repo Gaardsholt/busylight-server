@@ -18,3 +18,8 @@ updates:
     open-pull-requests-limit: 100
     reviewers:
       - "gaardsholt"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
