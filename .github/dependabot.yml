@@ -8,18 +8,12 @@ updates:
   - package-ecosystem: "nuget" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
-    reviewers:
-      - "gaardsholt"
+      interval: "monthly"
   - package-ecosystem: "docker" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
-    open-pull-requests-limit: 100
-    reviewers:
-      - "gaardsholt"
-
-  - package-ecosystem: github-actions
-    directory: /
+      interval: "monthly"
+  - package-ecosystem: "github-actions"
+    directory: "/"
     schedule:
-      interval: daily
+      interval: "monthly"
