@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0@sha256:fdac9ba57a38ffaa6494b93de33983644c44d9e491e4e312f35ddf926c55a073 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:9.0@sha256:7d24e90a392e88eb56093e4eb325ff883ad609382a55d42f17fd557b997022ca AS build-env
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
