@@ -19,3 +19,7 @@ updates:
     schedule:
       interval: "monthly"
     open-pull-requests-limit: 100
+    groups:
+      codeql:
+        patterns:
+          - "github/codeql-action*"
