@@ -10,7 +10,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0@sha256:894c9f49ae9a72b64e61ef6071a33b6b616d0cf48ef25c83c4cf26d185f37565
+FROM mcr.microsoft.com/dotnet/aspnet:10.0@sha256:7c4246c1c384319346d45b3e24a10a21d5b6fc9b36a04790e1588148ff8055b0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
